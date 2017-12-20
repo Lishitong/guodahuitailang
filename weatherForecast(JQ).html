@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style media="screen">
+      *{
+        margin:0;
+        padding:0;
+      }
+      #wrap{
+        width: 960px;
+        margin:60px auto;
+        color: #3c3c3c;
+        overflow: hidden;
+      }
+      .inquire {
+        text-align: center;
+        font-size: 0;
+      }
+      .inquire>input[type="text"]{
+        width: 388px;
+        height: 22px;
+        outline: none;
+        vertical-align:top;
+        border-width: 1px;
+        padding-left: 10px;
+      }
+      .inquire>button{
+        width: 100px;
+        height: 24px;
+        margin-left: 50px;
+      }
+      .current {
+        width: 550px;
+        margin: 0 auto;
+        padding:25px 0 30px 0;
+        border-bottom: 1px solid #000;
+      }
+      #city {
+        color: #333;
+        font-size: 30px;
+        margin-left: 10px;
+        margin-right: 50px;
+      }
+      #now {
+        color:red;
+        font-size: 30px;
+        margin-left: 10px;
+      }
+      #date {
+        float: right;
+        margin-right: 10px;
+        margin-top: 20px;
+        color: #333;
+      }
+      .forecast , .weather {
+        width:550px;
+        margin: 0 auto;
+
+      }
+      .weather {
+        padding:30px 0 50px 0;
+        font-size: 30px;
+        font-weight: 700;
+        position: relative;
+      }
+      .weather>span:nth-of-type(2){
+        color: #333;
+        font-size: 40px;
+      }
+      {
+        font-size: 14px;
+      }
+      #high {
+        color: #ff6600;
+      }
+      #low {
+        color: #0099ff;
+      }
+      #weather {
+        font-size: 30px;
+        color: #333;
+        /*font-weight: normal;*/
+        margin-left: 35px;
+      }
+      .forecast>p{
+        font-size: 30px;
+        color: #333;
+        padding-bottom: 14px;
+        border-bottom: 1px solid #000;
+        margin-bottom: 10px;
+      }
+      .item , #yesterday {
+        float: left;
+        width: 90px;
+        text-align: center;
+        border-right: 1px solid #000;
+      }
+      .item:nth-last-of-type(1){
+        border: none;
+      }
+      .date {
+        font-size: 13px;
+        padding-bottom: 25px;
+      }
+      .high{
+        color: #ff6600;
+      }
+      .low {
+        color: #0099ff;
+        padding: 45px 0 45px 0;
+      }
+      #ganMao {
+        position: absolute;
+        top: 25px;
+        right: 0;
+        width: 150px;
+        font-size: 14px;
+        color:#000;
+      }
+    </style>
+    <script type="text/javascript" src="./jquery-3.2.1.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        var $text = $('#text');
+        var $status;
+        if (!$text.val()) {
+          $text.val('北京');
+          var city = $text.val();
+          $text.val('');
+        }
+        $('.inquire>button').click(function() {
+          var re = /[\u4e00-\u9fa5]/;
+          if (re.test($text.val())) {
+            city = $text.val();
+            chaXun();
+            $text.val('');
+          }else {
+            $text.val('');
+            alert('请输入汉字格式的城市名(市区名)');
+          }
+        });
+        function chaXun(){
+          $.getJSON('http://wthrcdn.etouch.cn/weather_mini?city='+city,function(data){
+            if(data.status == 1000 && data.desc =='OK'){
+              var $date = new Date();
+              var forecast = data.data.forecast;
+              $('#city').text(data.data.city);
+              $('#now').text(data.data.wendu + '°C');
+              $('#date').text($date.toLocaleDateString()+' 星期'+$date.getDay());
+              $('#low').text(forecast[0].low.slice(3));
+              $('#high').text(forecast[0].high.slice(3));
+              $('#weather').text(forecast[0].type);
+              $('#ganMao').text(data.data.ganmao);
+
+              var yesterday = data.data.yesterday;
+              $('#yesterday>.date').text(yesterday.date);
+              $('#yesterday>.high').text(yesterday.high.slice(3));
+              $('#yesterday>.low').text(yesterday.low.slice(3));
+              $('#yesterday>.img').attr('src','./img/'+tianQi(yesterday.type)+'.png');
+
+              $('.item').each(function(index, el) {
+                var inde = forecast[index];
+                $(this).find('.date').text(inde.date);
+                $(this).find('.high').text(inde.high.slice(3));
+                $(this).find('.low').text(inde.low.slice(3));
+                $(this).find('.img').attr('src','./img/'+tianQi(inde.type)+'.png');
+              });
+            }else {
+              alert('暂未查询到该地区,请重新输入');
+            }
+          });
+        }
+        chaXun();
+        function tianQi(value){
+          switch (value) {
+            case '晴':
+              return '1';
+            case '多云':case '阴':case '阵雨转多云':
+              return '2';
+            case '阵雨':case '小雨':case '中雨':case '大雨':case '暴雨':case '大暴雨':case '特大暴雨':case '阵雨转小雨':case '阵雨转多云':case '中到大雨':case '雷阵雨':
+              return '3';
+            case '小雪':
+              return '4';
+          }
+        }
+      });
+    </script>
+  </head>
+  <body>
+    <div id="wrap">
+      <div class="inquire">
+        <input type="text" id="text" value="" placeholder="请输入城市名">
+        <button type="button" name="button">查询</button>
+      </div>
+      <div class="current">
+        <span>当前城市:</span>
+        <span id="city"></span>
+        <span>当前温度:</span>
+        <span id="now"></span>
+        <span id="date"></span>
+      </div>
+      <div class="weather">
+        <span id="low"></span>
+        <span >~</span>
+        <span id="high"></span>
+        <span id="weather"></span>
+        <span id="ganMao"></span>
+      </div>
+      <div class="forecast">
+        <p>昨天及本周天气</p>
+        <div id="yesterday">
+          <p class="date"></p>
+          <p class="high"></p>
+          <p class="low"></p>
+          <img src="" alt="" class="img">
+        </div>
+        <div id="item">
+          <div class="item">
+            <p class="date"></p>
+            <p class="high"></p>
+            <p class="low"></p>
+            <img src="" alt="" class="img">
+          </div>
+          <div class="item">
+            <p class="date"></p>
+            <p class="high"></p>
+            <p class="low"></p>
+            <img src="" alt="" class="img">
+          </div>
+          <div class="item">
+            <p class="date"></p>
+            <p class="high"></p>
+            <p class="low"></p>
+            <img src="" alt="" class="img">
+          </div>
+          <div class="item">
+            <p class="date"></p>
+            <p class="high"></p>
+            <p class="low"></p>
+            <img src="" alt="" class="img">
+          </div>
+          <div class="item">
+            <p class="date"></p>
+            <p class="high"></p>
+            <p class="low"></p>
+            <img src="" alt="" class="img">
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </body>
+</html>

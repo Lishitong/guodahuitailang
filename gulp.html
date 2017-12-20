@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>gulp.js - 基于流的自动化构建工具。 | gulp.js 中文网</title>
+  <link rel="icon" href="favicon.ico">
+  <meta name="description" content="Gulp.js 是一个自动化构建工具，开发者可以使用它在项目开发过程中自动执行常见任务。Gulp.js 是基于 Node.js 构建的，利用 Node.js 流的威力，你可以快速构建项目并减少频繁的 IO 操作。Gulp.js 源文件和你用来定义任务的 Gulp 文件都是通过 JavaScript（或者 CoffeeScript ）源码来实现的。">
+  <link rel="stylesheet" href="./bootstrap-3.3.7-dist/css/bootstrap.css">
+  <link rel="stylesheet" href="./bootstrap-3.3.7-dist/css/bootstrap-theme.css">
+  <script src="./jquery-3.2.1.js" charset="utf-8"></script>
+  <script src="./bootstrap-3.3.7-dist/js/bootstrap.js" charset="utf-8"></script>
+  <style media="screen">
+    body {
+      font-family: "Helvetica Neue", "Helvetica", "Lucida Grande", "Arial", "Hiragino Sans GB", "Microsoft Yahei", "WenQuanYi Micro Hei", "sans-serif";
+    }
+
+    .navbar-inverse {
+      background: #cf4646;
+      border-color: #cf4646;
+    }
+
+    #navbar ul.navbar-nav>li>a {
+      color: #e8e8e8;
+      text-shadow: none;
+    }
+
+    .navbar-nav>li>a:hover,
+    .navbar-inverse .navbar-toggle:hover,
+    .navbar-inverse .navbar-toggle:focus {
+      background: #cf4646;
+    }
+
+    .navbar-header>.navbar-brand,
+    #navbar .navbar-nav>li>a:hover {
+      color: #fff;
+    }
+
+    .navbar-inverse .navbar-toggle {
+      border-color: #fff;
+    }
+
+    .navbar-inverse .navbar-collapse {
+      border-color: #CA3131;
+    }
+
+    .jumbotron {
+      margin-top: 50px;
+      text-align: center;
+      background-color: #cf4646;
+      color: #fff;
+    }
+
+    .jumbotron .logo {
+      width: 100%;
+      max-width: 200px;
+    }
+
+    .jumbotron .btn-getting-started {
+      color: #efbfbf;
+      border: none;
+      box-shadow: inset 0 0 0 2px #efbfbf;
+      border-radius: 2px;
+      background: transparent;
+      margin-top: 26px;
+      text-shadow: none;
+    }
+
+    .jumbotron .btn-getting-started:hover {
+      color: #fff;
+      box-shadow: inset 0 0 0 2px #fff;
+      background-color: transparent;
+    }
+
+    .benefits h2 {
+      margin-top: 40px;
+    }
+
+    .benefits p {
+      font-size: 18px;
+    }
+    .footer {
+      margin-top: 60px;
+      text-align: center;
+      color: #aaa;
+    }
+    .footer a {
+      color: inherit;
+      text-decoration: none;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 顶部导航 -->
+  <nav class="navbar navbar-inverse navbar-fixed-top site-navbar">
+    <div class="container">
+      <div class="navbar-header">
+        <a href="#" class="navbar-brand">Gulp 中文网</a>
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse navbar-right">
+        <ul class="nav navbar-nav">
+          <li><a href="#">首页</a></li>
+          <li><a href="#">中文文档</a></li>
+          <li><a href="#">入门指南</a></li>
+          <li><a href="#">API</a></li>
+          <li><a href="#">插件开发</a></li>
+          <li><a href="#">常见问题</a></li>
+          <li><a href="#">使用技巧</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- 头部 -->
+  <header class="jumbotron">
+    <img src="http://www.gulpjs.com.cn/img/gulp.png" class="hidden" width="800" height="600">
+    <h1>
+      <span class="text-hide">
+        "Gulp.js"
+        <span>
+          <img class="logo" src="http://www.gulpjs.com.cn/img/gulp-white-text.svg" alt="">
+        </span>
+      </span>
+    </h1>
+    <p class="lead">用自动化构建工具增强你的工作流程！</p>
+    <p><a class="btn btn-lg btn-default btn-getting-started" href="#" role="button">开始使用</a></p>
+  </header>
+  <!-- 页面正文 -->
+  <main class="benefits container">
+    <div class="row">
+      <div class="col-md-6 col-sm-12">
+        <h2>易于使用</h2>
+        <p>通过代码优于配置的策略，Gulp 让简单的任务简单，复杂的任务可管理。</p>
+      </div>
+      <div class="col-md-6 col-sm-12">
+        <h2>构建快速</h2>
+        <p>利用 Node.js 流的威力，你可以快速构建项目并减少频繁的 IO 操作。</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 col-sm-12">
+        <h2>插件高质</h2>
+        <p>Gulp 严格的插件指南确保插件如你期望的那样简洁高质得工作。</p>
+      </div>
+      <div class="col-md-6 col-sm-12">
+        <h2>易于学习</h2>
+        <p>通过最少的 API，掌握 Gulp 毫不费力，构建工作尽在掌握：如同一系列流管道。</p>
+      </div>
+    </div>
+  </main>
+  <!-- 底部版权 -->
+  <footer class="footer">
+    <div class="container">
+      <p>© Gulp 中文网 2015</p>
+      <p><a href="http://www.miibeian.gov.cn/" target="_blank">京ICP备11008151号</a> | 京公网安备11010802014853</p>
+    </div>
+  </footer>
+</body>
+
+</html>

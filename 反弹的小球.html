@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style media="screen">
+      *{
+        margin: 0;
+        padding:0;
+        overflow: hidden;
+      }
+      div{
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        border-radius:50%;
+
+      }
+    </style>
+    <script type="text/javascript">
+      window.onload = function (){
+
+
+        var str = '1234567890abcdef';
+        function ballBg(str,str1,str2){
+          var str = str;
+          var str1 = str1;
+          var str2 = str2;
+          for (var i = 0; i < str2; i++) {
+            var color = parseInt(Math.random()*str.length);
+            str1 += str[color];
+          }
+          return str1;
+        }
+
+        document.body.style.backgroundColor = '#000';
+
+        function createBall(){
+          var widthHeight = parseInt(Math.random() * 20 + 10);
+          var ballBgColor = Math.random();
+          var ballLeft = parseInt(Math.random() * (window.innerWidth - widthHeight));
+          var ballTop = parseInt(Math.random() * (window.innerHeight - widthHeight));
+          var ball = document.createElement('div');
+          ball.style.width = widthHeight + 'px';
+          ball.style.height = widthHeight + 'px';
+          ball.style.opacity = ballBgColor;
+          ball.style.backgroundColor = ballBg(str,'#',6);
+          ball.style.top = ballTop + 'px';
+          ball.style.left = ballLeft + 'px';
+
+          var x = parseInt(Math.random()*16 - 8);
+          var y = parseInt(Math.random()*16 - 7);
+          if (x == 0) {
+             x = parseInt(Math.random()*16 - 8);
+          }
+
+          if (y == 0) {
+             y = parseInt(Math.random()*16 - 7);
+          }
+          setInterval(function(){
+              if (ball.offsetWidth + ball.offsetLeft > window.innerWidth || ball.offsetLeft < 0) {
+                x *= -1;
+              }
+              if (ball.offsetHeight + ball.offsetTop > window.innerHeight  || ball.offsetTop < 0) {
+                y *= -1;
+              }
+              ball.style.left = ball.offsetLeft + x + 'px';
+              ball.style.top = ball.offsetTop + y + 'px';
+
+          },15);
+          document.body.appendChild(ball);
+        }
+
+        for (var i = 0; i < 100; i++) {
+          createBall();
+        }
+      };
+    </script>
+  </head>
+  <body>
+
+  </body>
+</html>

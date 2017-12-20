@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style media="screen">
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      img {
+        border:0 none;
+        vertical-align: middle;
+      }
+      #wrap {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-left: -260px;
+        margin-top: -140px;
+
+        width: 520px;
+        height: 280px;
+        overflow: hidden;
+      }
+
+      .wrap {
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        height: 280px;
+
+        -webkit-transition: all 1.5s;
+        -moz-transition: all 1.5s;
+        -ms-transition: all 1.5s;
+        -o-transition: all 1.5s;
+        transition: all 1.5s;
+      }
+      .wrap>div{
+        float: left;
+      }
+
+      .sub{
+        position: absolute;
+        bottom: 0px;
+        left: 50%;
+        margin-left: -50px;
+
+        width: 119px;
+        height: 15px;
+      }
+
+      .sub span{
+        margin:0 5px;
+
+        display: inline-block;
+        vertical-align: top;
+
+        width: 10px;
+        height: 10px;
+
+        background-color: #aaa;
+        border-radius: 50%;
+
+        cursor: pointer;
+      }
+      .sub span:hover{
+        background-color: red;
+      }
+
+      .color {
+        background-color: red !important;
+      }
+
+      #arrowUp {
+        background: url(./images/arrowLeft.png) no-repeat;
+
+        left: 4px;
+      }
+
+      #arrowDown {
+        background: url(./images/arrowRight.png) no-repeat;
+
+        right: 4px;
+      }
+
+      .btn {
+        z-index: 1;
+        position: absolute;
+        top: 50%;
+        margin-top: -12px;
+
+        border:0 none;
+        outline: none;
+
+        width: 24px;
+        height: 24px;
+
+        cursor: pointer;
+
+        display: none;
+      }
+    </style>
+    <script type="text/javascript">
+      window.onload = function (){
+          var wrap = document.querySelector('.wrap');
+          var show = document.querySelector('#wrap');
+          var sub = document.querySelectorAll('#sub>span');
+          var divs = wrap.querySelectorAll('div');
+          var arrowUp = document.querySelector('#arrowUp');
+          var arrowDown = document.querySelector('#arrowDown');
+
+          var w = show.offsetWidth;
+          wrap.style.width = divs.length * w + 'px';
+
+          var index = 0;
+          var timer = setInterval(nextFn,3000);
+
+          show.onmouseover = function (){
+            arrowUp.style.display = 'block';
+            arrowDown.style.display = 'block';
+            clearInterval(timer);
+          }
+
+          show.onmouseout = function (){
+            arrowUp.style.display = 'none';
+            arrowDown.style.display = 'none';
+            clearTimer();
+          }
+
+          arrowDown.onclick = function (){
+            nextFn();
+            clearTimer();
+          };
+
+          arrowUp.onclick = function (){
+            index--;
+            if (index < 0) {
+              index = divs.length - 1;
+            }
+            base();
+            clearTimer();
+          }
+
+          for (var i = 0; i < sub.length; i++) {
+            sub[i].index = i;
+            sub[i].onclick = function (){
+              for (var j = 0; j < sub.length; j++) {
+                sub[j].className = '';
+              }
+              this.className = 'color';
+              index = this.index;
+              var left = index * w * -1;
+              wrap.style.left = left + 'px';
+              clearTimer();
+            };
+          }
+
+
+          function nextFn(){
+            index++;
+            if (index > divs.length -1) {
+              index = 0;
+            }
+            base();
+          }
+
+          function base(){
+            var left = index * w * -1;
+            wrap.style.left = left + 'px';
+            for (var i = 0; i < sub.length; i++) {
+               sub[i].className = '';
+               sub[index].className = 'color';
+            }
+          }
+
+          function clearTimer () {
+            clearInterval(timer);
+            timer = setInterval(nextFn,3000);
+          }
+      };
+    </script>
+  </head>
+  <body>
+        <div id="wrap">
+            <button class="btn" type="button" name="button" id="arrowUp"></button>
+            <button class="btn" type="button" name="button" id="arrowDown"></button>
+          <div class="wrap">
+            <div><img src="./images/tb1.jpg" alt=""></div>
+            <div><img src="./images/tb2.jpg" alt=""></div>
+            <div><img src="./images/tb3.jpg" alt=""></div>
+            <div><img src="./images/tb4.png" alt=""></div>
+            <div><img src="./images/tb5.png" alt=""></div>
+          </div>
+          <div id="sub" class="sub">
+            <span class="color"></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+  </body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style media="screen">
+      *{
+        margin:0;
+        padding:0;
+      }
+      ul {
+        float: left;
+        width: 250px;
+        margin-left: 10px;
+        list-style:none;
+      }
+      li {
+        width: 250px;
+        margin-top: 10px;
+        position: relative;
+        border:1px solid gray;
+
+      }
+      .clearfix:after{
+        content: '';
+        display: table;
+        clear: both;
+      }
+      #wrap{
+        width: 1050px;
+        margin: 0 auto;
+        margin-top: 10px;
+      }
+    </style>
+    <script src="./jquery-3.2.1.js" charset="utf-8"></script>
+    <script src="./jquery.lazyload.min.js" charset="utf-8"></script>
+    <script type="text/javascript">
+      $(document).ready(function() {
+          function random(min,max){
+            return parseInt(Math.random() * (max - min) + min);
+          }
+
+
+          function createLi(n){
+            for (var i = 0; i < n; i++) {
+              var even = i % 2 == 0 ? 'fadeIn' : 'slideDown';
+              var h = random(300,500);
+              $('<li></li>',{
+                width:'250px',
+                height: h + 'px'
+              })
+              .append($('<img />',{
+                'data-original' : 'https://unsplash.it/250/'+h+'/?random'
+              }).lazyload({
+                placeholder : './Loading.png',
+                effect : even,
+                threshold : 200,
+                failure_limit : 10
+              }))
+              .appendTo(ulAdd());
+
+            }
+          }
+
+          function ulAdd(n){
+            var arrUl = [];
+            $.each($('ul'),function(index, el) {
+              arrUl.push(el);
+            });
+            arrUl.sort(function(x,y){
+              var n1 = x.offsetHeight;
+              var n2 = y.offsetHeight;
+              return n1 - n2;
+            })
+            return arrUl[n] ? arrUl[n] : arrUl[0];
+          }
+
+        createLi(20);
+
+
+        $(document).scroll(function() {
+          var height = $(document).scrollTop() + $(window).height();
+          if (height >= ulAdd().offsetHeight) {
+            createLi(20);
+          }
+        });
+
+      });
+    </script>
+  </head>
+  <body>
+    <div id="wrap" class="clearfix">
+      <ul></ul>
+      <ul></ul>
+      <ul></ul>
+      <ul></ul>
+    </div>
+  </body>
+</html>

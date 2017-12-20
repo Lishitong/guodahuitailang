@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style media="screen">
+      *{
+        margin:0;
+        padding:0;
+      }
+      ul {
+        float: left;
+        width: 250px;
+        margin-left: 10px;
+        list-style:none;
+      }
+      li {
+        width: 250px;
+        margin-top: 10px;
+        position: relative;
+        border:1px solid gray;
+
+      }
+      .clearfix:after{
+        content: '';
+        display: table;
+        clear: both;
+      }
+      #wrap{
+        width: 1050px;
+        margin: 0 auto;
+        margin-top: 10px;
+      }
+    </style>
+    <script src="./jquery-3.2.1.js" charset="utf-8"></script>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        $.ranDom = {
+          random : function(min,max){
+            return parseInt(Math.random() * (max - min) + min);
+          }
+        }
+        $.createLi = {
+          li:function(n){
+            for (var i = 0; i < n; i++) {
+              var h = $.ranDom.random(300,500);
+              $('<li></li>',{
+                width:'250px',
+                height: h + 'px'
+              }).append($('<img />',{
+                src:'https://unsplash.it/250/'+h+'/?random'
+              })).appendTo($.createLi.ulAdd());
+            }
+          },
+          ulAdd:function(n){
+            var arrUl = [];
+            $.each($('ul'),function(index, el) {
+              arrUl.push(el);
+            });
+            arrUl.sort(function(x,y){
+              var n1 = x.offsetHeight;
+              var n2 = y.offsetHeight;
+              return n1 - n2;
+            })
+            return arrUl[n] ? arrUl[n] : arrUl[0];
+          }
+        }
+        $.createLi.li(20);
+        $(document).scroll(function() {
+          var height = $(document).scrollTop() + $(window).height();
+          if (height >= $.createLi.ulAdd().offsetHeight) {
+            $.createLi.li(20);
+          }
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <div id="wrap" class="clearfix">
+      <ul></ul>
+      <ul></ul>
+      <ul></ul>
+      <ul></ul>
+    </div>
+  </body>
+</html>

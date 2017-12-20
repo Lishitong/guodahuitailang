@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="icon" type="images/x-icon" href="./img/format.ico">
+    <meta name="viewport" content="width=device-width, height=device-height,initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+
+    <style type="text/css">
+        html {
+            font-size: 10px
+        }
+
+        @media screen and (min-width:321px) and (max-width:375px) {
+            html {
+                font-size: 11px
+            }
+        }
+
+        @media screen and (min-width:376px) and (max-width:414px) {
+            html {
+                font-size: 12px
+            }
+        }
+
+        @media screen and (min-width:415px) and (max-width:639px) {
+            html {
+                font-size: 15px
+            }
+        }
+
+        @media screen and (min-width:640px) and (max-width:719px) {
+            html {
+                font-size: 20px
+            }
+        }
+
+        @media screen and (min-width:720px) and (max-width:749px) {
+            html {
+                font-size: 22.5px
+            }
+        }
+
+        @media screen and (min-width:750px) and (max-width:799px) {
+            html {
+                font-size: 23.5px
+            }
+        }
+
+        @media screen and (min-width:800px) {
+            html {
+                font-size: 25px
+            }
+        }
+    </style>
+
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+
+        #wrap {
+            display: flex;
+            height: 100%;
+            flex-direction: column;
+        }
+
+        #nav {
+            flex-grow: 1;
+            flex-shrink: 0;
+            background-color: #F19483;
+
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-end;
+
+            border-bottom: 1px solid gray;
+            box-shadow: 0 1 1 gray;
+        }
+
+        #nav>span {
+            flex-grow: 0.5;
+        }
+
+        #back {
+            background-image: url(img/Back_25.741935483871px_1180766_easyicon.net.png);
+            background-size: 50%;
+            background-repeat: no-repeat;
+
+            height: 4rem;
+            color: white;
+            flex-grow: 1;
+        }
+
+        #text {
+            flex-grow: 8;
+            text-align: center;
+
+            width: 5rem;
+            height: 4rem;
+        }
+
+        #text>#title {
+            font-size: 2rem;
+        }
+
+        #text>#title {
+            font-size: 1.5rem;
+        }
+
+        #share {
+            background-image: url(img/Share_47.186440677966px_1183668_easyicon.net.png);
+            background-size: 100%;
+            background-repeat: no-repeat;
+
+            height: 4rem;
+
+            flex-grow: 1;
+        }
+
+        #content {
+            flex-grow: 7;
+            flex-shrink: 5;
+            background-color: #F19483;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        #content>#pointer {
+            flex-grow: 0.5;
+            width: 20rem;
+            height: 6rem;
+            background-image: url(img/pointer.png);
+            background-size: 50%;
+            background-position: right top;
+            background-repeat: no-repeat;
+            margin: 0 auto;
+            transition: all 1s;
+            z-index: 1;
+            transform-origin: center top;
+        }
+
+
+
+        #content>#turn {
+            flex-grow: 8;
+
+            background-image: url(img/turn.png);
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            background-color: red;
+            border-radius: 50%;
+            margin: 0 auto;
+        }
+
+        #content>#more {
+            flex-grow: 2;
+            display: flex;
+            justify-content: space-around;
+
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-end;
+
+            width: 70%;
+            margin: 0 auto;
+        }
+
+        #more>span:nth-child(1) {
+            width: 2rem;
+            height: 2rem;
+            background-image: url(img/love_35.608008429926px_1207186_easyicon.net.png);
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+        }
+
+        #more>span:nth-child(2) {
+            width: 2rem;
+            height: 2rem;
+            background-image: url(img/download_25.676320272572px_1206412_easyicon.net.png);
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+        }
+
+        #more>span:nth-child(3) {
+            width: 2rem;
+            height: 2rem;
+            background-image: url(img/bubbles_talk_40.888888888889px_1171123_easyicon.net.png);
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+        }
+
+        #more>span:nth-child(4) {
+            width: 2rem;
+            height: 2rem;
+            background-image: url(img/more_7.8086124401914px_1170511_easyicon.net.png);
+            background-repeat: no-repeat;
+            /*background-size: 100% 100%;*/
+            background-position: center top;
+        }
+
+        #audio {
+            flex-grow: 2;
+            flex-shrink: 0;
+            background-color: #F19483;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+        }
+
+        #timer {
+            margin-top: 1rem;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        #timer>#pass , #timer>#totle{
+            flex-grow: 1;
+            text-align: center;
+        }
+
+        #timer>#sliderBar , #sliderBarV{
+            flex-grow: 8;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        #sliderBarV {
+            flex-grow: 0;
+            width: 20rem;
+            margin: 0 1.5rem 0 .5rem;
+        }
+
+        #sliderBar>#slider , #sliderV{
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background-color: white;
+        }
+
+        #redSlider{
+            height: 2px;
+            width: 0;
+            background-color: red;
+        }
+
+        #sliderBar>#bar , #barV{
+            position: absolute;
+            width: 1rem;
+            height: 1rem;
+            border-radius: 50%;
+            background-color: white;
+        }
+
+        #control {
+            width: 70%;
+            display: flex;
+            margin: 0 auto;
+            justify-content: space-around;
+        }
+
+        #control>#last {
+            width: 3rem;
+            height: 3rem;
+            background-image: url(img/Next_Music_32px_1178284_easyicon.net.png);
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            transform: rotate(180deg);
+        }
+
+        #control>#stop {
+            width: 3.5rem;
+            height: 3.5rem;
+            background-image: url(img/play_48px_1180266_easyicon.net.png);
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+        }
+
+        #control>#next {
+            width: 3rem;
+            height: 3rem;
+            background-image: url(img/Next_Music_32px_1178284_easyicon.net.png);
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+        }
+
+        #setVorP {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+
+        #volumeControl , #orderControl{
+          background-repeat: no-repeat;
+          background-size: 100% 100%;
+
+        }
+
+        #volumeControl {
+          background-image: url(img/volume_38.732240437158px_1170620_easyicon.net.png);
+          width: 2rem;
+          height: 2rem;
+        }
+
+        #orderControl {
+          background-image: url(img/列表循环.png);
+          width: 2.5rem;
+          height: 2.5rem;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="wrap">
+        <div id="nav">
+            <span></span>
+            <div id="back"></div>
+
+            <div id="text">
+                <p id="title">Komorebi</p>
+                <p id="singer">m-taku</p>
+            </div>
+
+            <div id="share"></div>
+
+            <span></span>
+
+        </div>
+
+        <div id="content">
+            <div id="pointer"></div>
+            <div id="turn"></div>
+            <div id="more">
+                <span id="love"></span>
+                <span id="down"></span>
+                <span id="talk"></span>
+                <span id="talkList"></span>
+            </div>
+        </div>
+
+        <div id="audio">
+            <div id="timer">
+                <span id="pass">00:00</span>
+                <div id="sliderBar">
+                    <div id="slider">
+                        <div id="redSlider"></div>
+                    </div>
+                    <div id="bar"></div>
+                </div>
+                <span id="totle">00:00</span>
+            </div>
+
+            <div id="control">
+                <div id="last"></div>
+                <div id="stop"></div>
+                <div id="next"></div>
+            </div>
+
+            <div id="setVorP">
+              <div id="volumeControl">
+
+              </div>
+              <div id="sliderBarV">
+                  <div id="sliderV">
+                  </div>
+                  <div id="barV"></div>
+              </div>
+              <div id="orderControl">
+
+              </div>
+            </div>
+        </div>
+    </div>
+
+    <audio src="source/m-taku - Komorebi.mp3" ></audio>
+</body>
+
+  <script type="text/javascript">
+    var musicArr = [
+      {"Singer":"m-taku", "songName":"Komorebi"},
+      {"Singer":"Rainy Day", "songName":"Destiny"},
+      {"Singer":"Yulia", "songName":"말하지 못한 말 (Bonus Track)"},
+      {"Singer":"One Life", "songName":"지금은 이별입니다"},
+      {"Singer":"Pianoboy", "songName":"The truth that you leave"},
+      {"Singer":"Juliet", "songName":"モトカレ (Instrumental) - instrumental"},
+      {"Singer":"V.A.", "songName":"勿念他归"},
+      {"Singer":"简弘亦", "songName":"深蓝色的情书"},
+      {"Singer":"林志炫", "songName":"你的眼神"},
+      {"Singer":"齐秦", "songName":"火柴天堂"},
+    ];
+
+    var playOrder = [
+      "列表循环.png",
+      "单曲循环.png",
+      "顺序播放.png",
+      "随机播放.png"
+    ];
+
+
+    // 根据唱片的宽度，设置高度值
+    var turn = document.querySelector('#turn');
+    turn.style.width = turn.offsetHeight + 'px';
+    // 获取音频标签
+    var audio = document.querySelector('audio');
+    audio.volume = 0.5;
+    // 获取显示音频总时长的标签
+    var totleTag = document.querySelector('#totle');
+    // 获取显示音频已播放时长标签
+    var passTag = document.querySelector('#pass');
+    // 获取进度条的标签
+    var slider = document.querySelector('#slider');
+    // 获取到表示红色滑块的进度条标签
+    var redSlider = document.querySelector('#redSlider');
+    // 获取到滑块
+    var bar = document.querySelector('#bar');
+    // 获取到播放暂停的按钮
+    var playBtn = document.querySelector('#stop');
+    // 获取下一首的按钮
+    var nextBtn = document.querySelector('#next');
+    // 获取上一首的按钮
+    var lastBtn = document.querySelector('#last');
+    // 获取歌曲改变后的名字
+    var title = document.querySelector('#title');
+    // 获取歌曲改变后的歌手
+    var singer = document.querySelector('#singer');
+    // 获取音量进度条的标签
+    var sliderV = document.querySelector('#sliderV');
+    // 获取音量滑块
+    var barV = document.querySelector('#barV');
+    barV.style.left = sliderBarV.offsetWidth / 2 + 'px';
+    // 获取音量图标
+    var volumeControl = document.querySelector('#volumeControl');
+    // 获取播放模式
+    var orderControl = document.querySelector('#orderControl');
+    // 定义变量，记录当前是播放状态还是暂停状态；
+    var isPlay = false,
+        timeTimer,
+        sliderTimer,
+        cancelTimer,
+        index = 0,
+        muted = false,
+        bg,
+        barMark,
+        random,
+        touch;
+
+    random = parseInt(Math.random()* musicArr.length);
+
+    document.addEventListener ('touchstart', function (e) {
+      touch = e.targetTouches[0];
+      var touchId = touch.target.id;
+      if (touchId == 'slider' || touchId == 'redSlider') {
+        var moveX = touch.clientX - sliderBar.offsetLeft;
+        var pre = moveX / sliderBar.offsetWidth;
+        bar.style.left = moveX + 'px';
+        redSlider.style.width = moveX + 'px';
+        audio.currentTime = audio.duration * pre;
+      }
+
+      if (touchId == 'sliderV') {
+        var moveX = touch.clientX - sliderBarV.offsetLeft;
+        controlV (moveX);
+      }
+
+    });
+
+    bar.addEventListener ('touchmove', function (e) {
+      var moveX = e.targetTouches[0].clientX - sliderBar.offsetLeft;
+      var pre = moveX  / sliderBar.offsetWidth;
+      if (pre > 1) {
+        pre = 1;
+      }
+      if (pre < 0) {
+        pre = 0;
+      }
+      var left = pre * sliderBar.offsetWidth;
+      bar.style.left = left + 'px';
+      redSlider.style.width = left + 'px';
+      audio.currentTime = audio.duration * pre;
+    });
+
+    barV.addEventListener('touchmove' , function(e) {
+        var moveX = e.targetTouches[0].clientX - sliderBarV.offsetLeft;
+        controlV (moveX);
+    });
+
+    mutedRe ();
+
+    volumeControl.addEventListener('touchstart' , function () {
+
+        if (muted) {
+          audio.muted = !muted;
+          muted = false;
+          volumeControl.style.backgroundImage = bg;
+          barV.style.left = barMark + 'px';
+        }else {
+          audio.muted = !muted;
+          muted = true;
+          volumeControl.style.backgroundImage = 'url(img/volume_mute_50.252707581227px_1170623_easyicon.net.png)';
+          barV.style.left = '0px';
+
+        }
+
+    })
+
+    playBtn.addEventListener ('touchstart' , function (e) {
+      // 获取音乐总时间，并赋给标签对应的标签
+      if (totleTag.innerText == '00:00') {
+        totleTag.innerText = turnSec(audio.duration);
+      }
+      // 定义变量，分别保存控制播放时间的定时器和控制进度条；
+
+      // 根据isPlay的值 决定接下来是播放还是暂停
+      if (isPlay) {
+        audio.pause();
+        pauseSet ();
+
+      }else {
+        audio.play();
+        playSet ();
+      }
+    });
+
+    nextBtn.addEventListener ('touchstart' , nextSong);
+
+    lastBtn.addEventListener ('touchstart' , nextSong);
+
+    var order = 0;
+    orderControl.addEventListener ('touchstart' , function () {
+      order++;
+      if (order >= playOrder.length) {
+        order = 0
+      }
+      orderControl.style.backgroundImage = 'url(img/' + playOrder[order] + ')';
+    });
+
+
+    // 封装函数 实现时间转换
+    function turnSec (seconds) {
+      var min = parseInt(seconds / 60) < 10 ? '0' + parseInt(seconds / 60) : parseInt(seconds / 60);
+      var second =  parseInt(seconds % 60) < 10 ? '0' + parseInt(seconds % 60) : parseInt(seconds % 60);
+
+      return min + ':' + second ;
+    }
+    // 定义获取当前已播放时间的函数，
+    function getCurrentTime () {
+      var currentTime = turnSec(audio.currentTime);
+      passTag.innerText = currentTime;
+
+      if (order == 0) {
+        listOrder ();
+      }
+
+      if (totleTag.innerText != turnSec(audio.duration) && turnSec(audio.duration) != 'NaN:NaN') {
+        totleTag.innerText = turnSec(audio.duration);
+      }
+    }
+    // 定义修改进度条的函数
+    function changeSliderBar () {
+      // 计算已播放的时间占音乐总时间的百分比
+      var scale = audio.currentTime / audio.duration;
+      // 根据百分比，计算进度条滑块左侧间隔和表示已播放进度的红色div标签的宽度
+      var left = slider.offsetWidth * scale;
+      bar.style.left = left + 'px';
+      redSlider.style.width = left + 'px';
+
+      if (order == 1) {
+        var a = index;
+        onlySong (a);
+      }else if (order == 0) {
+        listOrder ();
+      }else if (order == 2) {
+        if (scale >= 1) {
+          orderPlay ();
+        }
+      }else if (order == 3) {
+        if (scale >= 1) {
+          randomPlay ();
+        }
+      }
+    }
+
+    // 清空定时器
+    function clearTimer () {
+      window.cancelAnimationFrame(cancelTimer);
+      clearInterval(timeTimer);
+      clearInterval(sliderTimer);
+    }
+
+    // 开启定时器
+    function openTimer () {
+      // 开启控制已播放时间的定时器
+      timeTimer = setInterval(getCurrentTime, 500);
+      // 开启控制进度条的定时器
+      sliderTimer = setInterval(changeSliderBar, 500);
+      // 开启控制唱片转动的定时器；
+      animati();
+    }
+
+
+    // 定义唱片的转动幅度
+    function animati () {
+      var scale = audio.currentTime / audio.duration;
+      var run = 360 * scale * 5;
+      turn.style.transform = 'rotate(' + run + 'deg)';
+
+      cancelTimer = window.requestAnimationFrame(animati);
+    }
+    // 自定义自动播放
+    function autoPaly () {
+      var scale = audio.currentTime / audio.duration;
+      if (scale == 1) {
+        nextSong();
+        openTimer ();
+        audio.play();
+      }
+    }
+
+    // 换歌
+    function changeSong () {
+      audio.src = 'source/' + musicArr[index].Singer + ' - ' + musicArr[index].songName + '.mp3';
+      singer.innerText = musicArr[index].Singer;
+      title.innerText = musicArr[index].songName;
+      pass.innerText = '00:00';
+      bar.style.left = '0px';
+      redSlider.style.width = '0px';
+      pauseSet ();
+    }
+
+    // 下一首
+    function nextSong () {
+      if (order == 3) {
+        random = parseInt(Math.random()* musicArr.length);
+        index = random;
+      }else {
+        index++;
+      }
+
+      if (index >= musicArr.length) {
+        index = 0;
+      }
+
+      isSong ();
+    }
+
+    // 上一首
+    function lastSong () {
+      if (order == 3) {
+        random = parseInt(Math.random()* musicArr.length);
+        index = random
+      }else {
+        index--;
+      }
+      if (index == 0) {
+        index = musicArr.length - 1;
+      }
+      isSong ();
+    }
+
+    // 判断是否处于播放状态切歌
+    function isSong () {
+      if (isPlay) {
+        changeSong ();
+        audio.play();
+        playSet ();
+      }else {
+        changeSong ();
+      }
+    }
+
+    // 播放状态按钮设置
+    function playSet () {
+      playBtn.style.backgroundImage = 'url(./img/Stop_32px_1161571_easyicon.net.png)';
+      isPlay = true;
+      pointer.style.transform = 'rotate(35deg)';
+      // 开启定时器
+      openTimer ();
+    }
+
+    // 暂停状态按钮设置
+    function pauseSet () {
+      playBtn.style.backgroundImage = 'url(./img/play_48px_1180266_easyicon.net.png)';
+      isPlay = false;
+      pointer.style.transform = 'none';
+      // 清理定时器
+      clearTimer();
+    }
+
+    // 控制音量
+    function controlV (moveX) {
+      var pre = moveX  / sliderBarV.offsetWidth;
+      if (pre > 1) {
+        pre = 1;
+      }
+      if (pre <= 0) {
+        pre = 0;
+      }
+      var left = pre * sliderBarV.offsetWidth;
+      barMark = left;
+      barV.style.left = left + 'px';
+      audio.volume = pre;
+      if (pre <= 0.33 && pre > 0) {
+        volumeControl.style.backgroundImage = 'url(img/volume_40.664259927798px_1170619_easyicon.net.png)';
+      }else if (pre > 0.33 && pre <= 0.66) {
+        volumeControl.style.backgroundImage = 'url(img/volume_38.732240437158px_1170620_easyicon.net.png)';
+      }else if (pre >0.66 && pre <= 1) {
+        volumeControl.style.backgroundImage = 'url(img/volume_34.387096774194px_1170621_easyicon.net.png)';
+      }else if (pre == 0){
+        volumeControl.style.backgroundImage = 'url(img/volume_mute_50.252707581227px_1170623_easyicon.net.png)';
+      }
+
+      mutedRe ();
+    }
+
+    // 静音还原
+    function mutedRe () {
+      bg = volumeControl.style.backgroundImage;
+      if (bg == '') {
+        bg = 'url(img/volume_38.732240437158px_1170620_easyicon.net.png)';
+        barMark = sliderBarV.offsetWidth / 2;
+      }else {
+        bg = volumeControl.style.backgroundImage;
+      }
+    }
+
+    // 单曲循环
+    function onlySong (index) {
+      var scale = audio.currentTime / audio.duration;
+      if (scale == 1) {
+        audio.src = 'source/' + musicArr[index].Singer + ' - ' + musicArr[index].songName + '.mp3';
+        singer.innerText = musicArr[index].Singer;
+        title.innerText = musicArr[index].songName;
+        pass.innerText = '00:00';
+        bar.style.left = '0px';
+        redSlider.style.width = '0px';
+        audio.play ();
+      }
+    }
+    // 列表循环
+    function listOrder () {
+      autoPaly ();
+    }
+    // 顺序播放
+    function orderPlay () {
+      if (index == musicArr.length - 1) {
+        changeSong ();
+      }else {
+        listOrder ();
+      }
+    }
+    // 随机播放
+    function randomPlay () {
+      random = parseInt(Math.random()* musicArr.length);
+      audio.src = 'source/' + musicArr[random].Singer + ' - ' + musicArr[random].songName + '.mp3';
+      singer.innerText = musicArr[random].Singer;
+      title.innerText = musicArr[random].songName;
+      pass.innerText = '00:00';
+      bar.style.left = '0px';
+      redSlider.style.width = '0px';
+      audio.play ();
+    }
+  </script>
+</html>

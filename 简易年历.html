@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style type="text/css">
+        *{
+          margin:0;
+          padding:0;
+        }
+        body {
+          background: #f6f9fc;
+          font: 14px arial;
+        }
+        h1 {
+          font-size: 100%;
+        }
+        .calendar {
+          width:210px;
+          height: 360px;
+          position: absolute;
+          top:50%;
+          left:50%;
+          margin-left: -105px;
+          margin-top: -180px;
+          background: #eae9e9;
+          padding:20px 10px 20px 20px;
+          /*overflow: hidden;*/
+        }
+        .item {
+          float: left;
+          background: #424242;
+          text-align: center;
+          color: #fff;
+          width: 58px;
+          height: 54px;
+          margin-right: 10px;
+          margin-bottom: 10px;
+          border: 1px solid #fff;
+          cursor: pointer;
+        }
+        .item .moth-num {
+          font-size: 20px;
+          font-weight: 700;
+          margin-top: 8px;
+        }
+        .click {
+          border:1px solid #000;
+          color: #e84a7e;
+          background: #fff;
+        }
+        .txt {
+          width: 178px;
+          height: 67px;
+          background: #f1f1f1;
+          border: 1px solid #fff;
+          float: left;
+          padding: 10px;
+          margin-top: 10px;
+          color: #555;
+        }
+        .txt dl{
+          font-weight: bold;
+        }
+        .txt dd{
+          margin-top: 10px;
+          font-size: 12px;
+          line-height: 18px;
+          font-weight: normal;
+        }
+    </style>
+    <script type="text/javascript">
+        window.onload = function (){
+          var arr = ["快过年了,大家可以商量着去哪玩儿吧~好开心111","好开心222","好开心333","好开心4444","好开心555","好开心666","好开心777","好开心888","好开心999","好开心aaa","好开心bbb","好开心ccc"];
+          var item = document.getElementById('calenDar').getElementsByTagName('div');
+          var active = document.querySelector('#active');
+          var content = document.querySelector('#content');
+          for (var i = 0; i < item.length; i++) {
+              item[i].index = i;
+            //  (function(i){ /*闭包*/
+               item[i].onclick = function (){
+                 for (var j = 0; j < item.length; j++) {
+                    item[j].className = 'item';
+                 }
+                 this.className = 'item click';
+                 active.innerHTML = (this.index+1) + '月活动 <dd>'+ arr[this.index] +'</dd>' ;
+                 
+               }
+            //  })(i);
+          }
+        };
+    </script>
+  </head>
+  <body>
+      <div class="calendar" id="calenDar">
+        <div class="item click">
+          <p class="moth-num">1</p>
+          <p>JAN</p>
+        </div>
+        <div class="item">
+          <p class="moth-num">2</p>
+          <p>FER</p>
+        </div>
+        <div class="item">
+          <p class="moth-num">3</p>
+          <p>MAR</p>
+        </div>
+        <div class="item">
+          <p class="moth-num">4</p>
+          <p>APR</p>
+        </div>
+        <div class="item">
+          <p class="moth-num">5</p>
+          <p>MAY</p>
+        </div>
+        <div class="item">
+          <p class="moth-num">6</p>
+          <p>JUN</p>
+        </div>
+        <div class="item">
+          <p class="moth-num">7</p>
+          <p>JUL</p>
+        </div>
+        <div class="item">
+          <p class="moth-num">8</p>
+          <p>AUG</p>
+        </div>
+        <div class="item">
+          <p class="moth-num">9</p>
+          <p>SEP</p>
+        </div>
+        <div class="item">
+          <p class="moth-num">10</p>
+          <p>OCT</p>
+        </div>
+        <div class="item">
+          <p class="moth-num">11</p>
+          <p>NOV</p>
+        </div>
+        <div class="item">
+          <p class="moth-num">12</p>
+          <p>DEC</p>
+        </div>
+        <h1 class="txt">
+          <dl id="active">
+            1月活动
+            <dd id="content">快过年了,大家可以商量着去哪玩儿吧~</dd>
+          </dl>
+        </h1>
+      </div>
+  </body>
+</html>

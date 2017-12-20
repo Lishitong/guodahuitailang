@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style media="screen">
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      /*设置html和body标签的宽高和浏览器可是区域一样*/
+      html,body{
+        width: 100%;
+        height: 100%;
+      }
+
+      /*设置小球移动范围的相关样式*/
+      #wrap{
+        position: relative;
+
+        width: 100%;
+        height: 100%;
+
+        background-color: #000;
+
+        overflow: hidden;
+      }
+
+      .ball{
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        border-radius: 50%;
+      }
+    </style>
+    <script type="text/javascript">
+        window.onload = function(){
+          // 获取容器节点;
+          var wrap = document.querySelector('#wrap');
+          // 工具函数:产生指定范围内的随机数
+          function randFn(min,max){
+            return parseInt(Math.random()*( max - min ) + min);
+          }
+
+          // 创建小球对象的构造函数
+          function Ball(){
+            // 随机产生小球的宽高
+            var wh = randFn(30,50);
+            // 设置宽高属性和属性值
+            this.width = wh;
+            this.height = wh;
+            // 设置小球诞生点的属性
+            this.top = randFn(0,document.body.offsetHeight - wh) + 'px';
+            this.left = randFn(0,document.body.offsetWidth - wh) + 'px';
+
+            // 设置小球背景颜色的随机数
+            this.color = 'rgba(' + randFn(0,256) + ',' + randFn(0,256) + ',' + randFn(0,256) + ',' + Math.random() + ')';
+
+            // 设置小球移动速度的属性
+            this.speedX = randFn(-8,8);
+            this.speedY = randFn(-8,8);
+            if(this.speedX == 0){
+              this.speedX = randFn(-8,8);
+            }
+            if(this.speedY == 0){
+              this.speedY = randFn(-8,8);
+            }
+            // 设置保存小球标签的属性
+            this.div = document.createElement('div');
+          }
+
+          // 原型方法绘制小球(配置div标签的相关css样式,然后把标签拼接到文档流);
+          Ball.prototype.draw = function(){
+            this.div.className = 'ball';
+
+            this.div.style.width = this.width + 'px';
+            this.div.style.height = this.height + 'px';
+            this.div.style.top = this.top;
+            this.div.style.left = this.left;
+            this.div.style.backgroundColor = this.color;
+
+            wrap.appendChild(this.div);
+          };
+          // 原型方法让小球移动且碰壁反弹
+          Ball.prototype.run = function(){
+              // 因为在定时器中使用的this指针是指向window对象的,要在定时器中获取当前操作的小球对象,就必须在定时器外部用变量把当前操作小球对象保存下来,在定时器内部通过该变量获取小球对象
+              var self = this;
+              setInterval(function(){
+                var tag = self.div;
+                //判断小球是否撞墙
+                if(tag.offsetLeft + tag.offsetWidth >= wrap.offsetWidth || tag.offsetLeft < 0){
+                  self.speedX *= -1;
+                }
+                if(tag.offsetTop + tag.offsetHeight >= wrap.offsetHeight || tag.offsetTop < 0){
+                  self.speedY *= -1;
+                }
+                tag.style.left = tag.offsetLeft + self.speedX + 'px';
+                tag.style.top = tag.offsetTop + self.speedY + 'px';
+              },30)
+          };
+
+
+            for (var i = 0; i < 10; i++) {
+              var ball = new Ball();
+              ball.draw();
+              ball.run();
+            }
+        };
+    </script>
+  </head>
+  <body>
+    <!-- 小球移动的范围 -->
+    <div id="wrap">
+
+    </div>
+  </body>
+</html>
